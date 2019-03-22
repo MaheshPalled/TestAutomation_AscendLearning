@@ -1,6 +1,7 @@
 package testCases;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,35 +11,32 @@ import pages.AboutPage;
 import pages.HomePage;
 import testBase.TestBase;
 
+
 public class AboutPageTestCases extends TestBase {
 	public AboutPage AscendLeardningAboutUs;
 	public HomePage AscendLearningHomePage;
-	
-	public AboutPageTestCases() throws IOException {
-		
-	}
 
 	@BeforeMethod
-	public void setUp() throws IOException {
+	public void setUp(Method method) throws IOException {
 		super.setUpBrowser();
 		AscendLearningHomePage = new HomePage(Browser);
 		AscendLearningHomePage.clickAbout(Browser);
 		AscendLeardningAboutUs = new AboutPage(Browser);
+		ExtentTester = Reporter.createTest(method.getAnnotation(Test.class).testName());
 	}
 	
 	@AfterMethod
 	public void tearDown() {
-		Browser.manage().deleteAllCookies();
 		Browser.quit();
 	}
 	
-	@Test (priority=1, testName="Verify page header and sub header from about page")
+	@Test (priority=1, testName="Verify page header and sub header from about page", suiteName="Regression")
 	public void verifyPageHeaderAndSubHeader() {
 		AscendLeardningAboutUs.verifyPageHeader();
 		AscendLeardningAboutUs.verifyPageSubHeader();
 	}
 	
-	@Test (priority=2, testName="Verify page header and sub header from about page")
+	@Test (priority=2, testName="Verify page header and sub header from about page", suiteName="Regression")
 	public void verifyTheBlockGridContainer() {
 		AscendLeardningAboutUs.verifyBlockGridList("blockGridList", "Nurses", "Medical Assistants", "Pharmacy Technicians", "EMTs", 
 				"Fitness Trainers", "Insurance Professionals",
@@ -47,13 +45,13 @@ public class AboutPageTestCases extends TestBase {
 				"We are great listeners", "We embrace change", "We are accountable");
 	}
 	
-	@Test (priority=3, testName="Verify leader present in about page")
+	@Test (priority=3, testName="Verify leader present in about page", suiteName="Regression")
 	public void verifyLeaderBoard() {
 		AscendLeardningAboutUs.verifyLeaderPods("Greg Sebasky", "Larry Gold", "Marty Manning", "Ash Siebecker", "Mandeep Johar", "Jeff Jones",
 				"Brian Kelly", "Laurie McCartney", "Ed Moura", "Kim Brophy");
 	}
 	
-	@Test (priority=4, testName="Verify footer links")
+	@Test (priority=4, testName="Verify footer links", suiteName="Regression")
 	public void verifyFooterLinks() {
 		AscendLeardningAboutUs.verifyFooterPrivacy();
 		AscendLeardningAboutUs.verifyFooterTerms();

@@ -43,14 +43,23 @@ public class AboutPage extends TestBase{
 	
 	//Page actions
 	public boolean verifyPageHeader() {
+		if (headLine.isDisplayed())
+			ExtentTester.pass("Header for about page is available on about page");
+		else 
+			ExtentTester.fail("Header for about page is unavailable on about page");
 		return headLine.isDisplayed();
 	}
 	public boolean verifyPageSubHeader() {
+		if (subHead.isDisplayed())
+			ExtentTester.pass("Sub heading for about page is available on about page");
+		else 
+			ExtentTester.fail("sub heading for about page is unavailable on about page");
 		return subHead.isDisplayed();
 	}
 	
 	public boolean verifyBlockGridList(String g1, String g2, String g3, String g4, String g5, String g6, String g7, String g8) {
 		boolean flag =true;
+		int counter=0;
 		List<String> gridList = new ArrayList<String>();
 		gridList.add(g1);
 		gridList.add(g2);
@@ -63,14 +72,19 @@ public class AboutPage extends TestBase{
 		for (WebElement element: blockGridList) {
 			if (gridList.contains(element.getText())) {
 				flag=false;
-				break;
+				ExtentTester.fail("Value pod "+gridList.get(counter)+" doesn't exist on the page");
 			}
+			else {
+				ExtentTester.pass("Value pod "+element.getText()+" exist on the page");
+			}
+			counter++;
 		}
 		return flag;
 	}
 	
 	public boolean verifyValuePods(String g1, String g2, String g3, String g4, String g5, String g6) {
 		boolean flag =true;
+		int counter=0;
 		List<String> gridList = new ArrayList<String>();
 		gridList.add(g1);
 		gridList.add(g2);
@@ -81,14 +95,19 @@ public class AboutPage extends TestBase{
 		for (WebElement element: valuePods) {
 			if (gridList.contains(element.getText())) {
 				flag=false;
-				break;
+				ExtentTester.fail("Value pod "+gridList.get(counter)+" doesn't exist on the page");
 			}
+			else {
+				ExtentTester.pass("Value pod "+element.getText()+" exist on the page");
+			}
+			counter++;
 		}
 		return flag;
 	}
 
 	public boolean verifyLeaderPods(String g1, String g2, String g3, String g4, String g5, String g6, String g7, String g8, String g9, String g10) {
 		boolean flag =true;
+		int counter=0;
 		List<String> gridList = new ArrayList<String>();
 		gridList.add(g1);
 		gridList.add(g2);
@@ -103,21 +122,37 @@ public class AboutPage extends TestBase{
 		for (WebElement element: leaderPods) {
 			if (!gridList.contains(element.getAttribute("innerHTML"))) {
 				flag=false;
-				break;
+				ExtentTester.fail("Leader "+gridList.get(counter)+" doesn't exist on the page");
 			}
+			else {
+				ExtentTester.pass("Leader "+element.getText()+" exist on the page");
+			}
+			counter++;
 		}
 		return flag;
 	}
 	
 	public boolean verifyFooterPrivacy() {
+		if (footerPrivacy.isDisplayed())
+			ExtentTester.pass("Footer link privacy is available on about page");
+		else 
+			ExtentTester.fail("Footer link privacy is unavailable on about page");
 		return footerPrivacy.isDisplayed();
 	}
 	
 	public boolean verifyFooterTerms() {
+		if (footerTerms.isDisplayed())
+			ExtentTester.pass("Footer link terms is available on about page");
+		else 
+			ExtentTester.fail("Footer link terms is unavailable on about page");
 		return footerTerms.isDisplayed();
 	}
 	
 	public boolean verifyFooterLinkedIn() {
+		if (footerLinkedIN.isDisplayed())
+			ExtentTester.pass("LinkedIn footer is available on about page");
+		else 
+			ExtentTester.fail("LinkedIn footer is unavailable on about page");
 		return footerLinkedIN.isDisplayed();
 	}
 }

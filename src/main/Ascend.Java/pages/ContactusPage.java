@@ -25,16 +25,24 @@ public class ContactusPage extends TestBase{
 	
 	//Page actions
 	public boolean verifyContactUsHeader() {
+		if (contactUsHeader.isDisplayed())
+			ExtentTester.pass("Contact us header is available on home page");
+		else 
+			ExtentTester.fail("Contact us header is unavailable on home page");
 		return contactUsHeader.isDisplayed();
 	}
 	
 	public boolean verifyLocationMap() {
+		if (locationMap.isDisplayed())
+			ExtentTester.pass("Location map is available on home page");
+		else 
+			ExtentTester.fail("Location map is unavailable on home page");
 		return locationMap.isDisplayed();
 	}
 	
 	public void displayTheAvailableLocation() {
 		for (WebElement element:availableLocations) {
-			System.out.println(element.getText());
+			ExtentTester.pass("Location map is available on home page"+element.getText());
 		}
 	}
 }

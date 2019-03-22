@@ -1,6 +1,7 @@
 package testCases;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,23 +17,23 @@ public class HomePageTestCases extends TestBase{
 	}
 	
 	@BeforeMethod
-	public void setUp() throws IOException {
+	public void setUp(Method method) throws IOException {
 		super.setUpBrowser();
 		AscendLearningHomePage = new HomePage(Browser);
+		ExtentTester = Reporter.createTest(method.getAnnotation(Test.class).testName());
 	}
 	
 	@AfterMethod
 	public void tearDown() {
-		Browser.manage().deleteAllCookies();
 		Browser.quit();
 	}
 	
-	@Test (priority=1, testName ="Verify the browser tittle")
+	@Test (priority=1, testName ="Verify the browser tittle", suiteName="Regression")
 	public void verifyTheBrowserTitle() {
 		AscendLearningHomePage.verifyPageTittle("Ascend Learning");
 	}
 	
-	@Test (priority=2, testName="Verify header links")
+	@Test (priority=2, testName="Verify header links", suiteName="Regression")
 	public void verifyHeaderLinks() {
 		AscendLearningHomePage.verifyHeader_about();
 		AscendLearningHomePage.verifyHeader_careers();
@@ -44,16 +45,16 @@ public class HomePageTestCases extends TestBase{
 		AscendLearningHomePage.verifyHeader_search();
 	}
 	
-	@Test (priority=3, testName="Verify the main heading and buttons available with it")
+	@Test (priority=3, testName="Verify the main heading and buttons available with it", suiteName="Regression")
 	public void verifyTheHeading_AvailableButtonsAlong() {
 		AscendLearningHomePage.verifyHomePage_Header();
 		AscendLearningHomePage.verifyPresenseOf_LearnMoreButton();
 		AscendLearningHomePage.verifyPresenseOf_JoinOurTeam();
 	}
 	
-	@Test (priority=4, testName="Verify that there are 4 teaser poiints and it's content")
+	@Test (priority=4, testName="Verify that there are 4 teaser points available", suiteName="Regression")
 	public void verifyTheTeaserPodsAndContents() {
-		AscendLearningHomePage.verifyTheContentOf_TeaserHeadPods("Clinical Healthcare","Global Fitness & Wellness","Professional Certification & Licensure","Content Solutions");
+		AscendLearningHomePage.verifyTheContentOf_TeaserHeadPods("Clinicl Healthcare","Global Fitness & Wellness","Professional Certification & Licensure","Content Solutions");
 		Browser.close();
 	}
 	
