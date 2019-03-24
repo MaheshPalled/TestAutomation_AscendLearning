@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite parallel="false" name="Suite">
+<suite parallel="false" name="Suite" > <!--thread-count="2" -->
 	<listeners>
 		<listener class-name="utility.TestListeners"/>
 	</listeners>
-	<test name="Test">
+	<test name="ChromeTest">
+	<parameter name = "driver" value ="Chrome" />
+		<classes>
+		<class name="testCases.HomePageTestCases" />
+		<class name="testCases.AboutPageTestCases" />
+		<class name="testCases.ContactUsPageTestCases" />
+		</classes>
+	</test> <!-- Test -->
+	<test name="safriTest">
+	<parameter name = "driver" value ="Safari" />
 		<classes>
 		<class name="testCases.HomePageTestCases" />
 		<class name="testCases.AboutPageTestCases" />

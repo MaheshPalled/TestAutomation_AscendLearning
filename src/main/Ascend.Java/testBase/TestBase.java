@@ -4,8 +4,11 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -19,12 +22,16 @@ public class TestBase {
 	public static ExtentReports Reporter;
 	public static ExtentTest ExtentTester;
 	
-	public static void setUpBrowser() throws IOException {
-		String driver = Utility.getMyValue("driver");
+	
+	public static void setUpBrowser(String driver) throws IOException {
 		String navUrl = Utility.getMyValue("navigationURL");
-		switch(driver) {
-		case "Chrome":
+		if(driver.equalsIgnoreCase("Chrome")) {
 			Browser = new ChromeDriver();
+			Browser.get(navUrl);
+			Browser.manage().window().fullscreen();
+		}
+		else if (driver.equalsIgnoreCase("Safari")){
+			Browser = new SafariDriver();
 			Browser.get(navUrl);
 			Browser.manage().window().fullscreen();
 		}
@@ -37,10 +44,19 @@ public class TestBase {
 		Reporter.attachReporter(HtmlReporter);
 	}
 
+	@BeforeTest()
+	public void testReport(){
+		HtmlReporter.setAppendExisting(true);
+	}
+	
+	@AfterTest()
+	public void addTestReport(){
+	
+	}
+	
 	
 	@AfterSuite
 	public void reportUpdate() {
-		Reporter.flush();
 	}
 	
 }
