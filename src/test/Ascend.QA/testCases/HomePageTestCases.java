@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import pages.HomePage;
@@ -16,9 +17,10 @@ public class HomePageTestCases extends TestBase{
 		
 	}
 	
+	@Parameters("driver")
 	@BeforeMethod
-	public void setUp(Method method) throws IOException {
-		super.setUpBrowser();
+	public void setUp(Method method, String driver) throws IOException {
+		super.setUpBrowser(driver);
 		AscendLearningHomePage = new HomePage(Browser);
 		ExtentTester = Reporter.createTest(method.getAnnotation(Test.class).testName());
 	}

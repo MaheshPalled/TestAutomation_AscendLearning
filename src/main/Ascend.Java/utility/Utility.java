@@ -22,9 +22,4 @@ public class Utility extends TestBase {
 		return prop.getProperty(key);
 	}
 	
-	public static String takeScreenShot(ITestResult result) throws Exception {
-		File SrcFile=((TakesScreenshot)Browser).getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(SrcFile, new File("/Users/arunaarali/eclipse-workspace/AscendLearning"+result.getName()+".jpg"));
-		return "/Users/arunaarali/eclipse-workspace/AscendLearning"+result.getName()+".jpg";
-	}
 }

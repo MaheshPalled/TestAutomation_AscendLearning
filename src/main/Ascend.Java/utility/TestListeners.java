@@ -8,10 +8,13 @@ import org.testng.ITestNGListener;
 import org.testng.ITestResult;
 import org.testng.internal.annotations.IListeners;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import utility.Utility;
 
 
@@ -46,12 +49,12 @@ public class TestListeners extends Utility implements ITestListener, IListeners 
 	@Override
 	public void onTestFailure(ITestResult result) {
 		// TODO Auto-generated method stub
-		try {
+		/*try {
 			ExtentTester.fail("Failed screenshot",MediaEntityBuilder.createScreenCaptureFromPath(Utility.takeScreenShot(result)).build());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		ExtentTester.fail(MarkupHelper.createLabel(result.getName()+" Testcase failed.",ExtentColor.RED));
 	}
 
@@ -70,13 +73,14 @@ public class TestListeners extends Utility implements ITestListener, IListeners 
 
 	@Override
 	public void onStart(ITestContext context) {
+		System.out.println("**Test execution initiated**");
 		
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
 		System.out.println("**Test execution completed**");
-
+		Reporter.flush();
 	}
 
 }
